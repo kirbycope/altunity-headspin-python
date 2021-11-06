@@ -16,7 +16,8 @@ def before_scenario(context, scenario):
 def after_scenario(context, scenario):
     end_session()
     test_data.time_end = time.time()
-    time_taken = str(timedelta(seconds=test_data.time_end - test_data.time_start))
+    time_taken = str(
+        timedelta(seconds=test_data.time_end - test_data.time_start))
     print("\n" + '\033[94m' + "  Total Test Time: " + time_taken + '\033[0m')
 
 
@@ -40,6 +41,7 @@ def start_session():
 
 def adb_connect():
     adb_shell("adb connect " + test_data.device_ip_address)
+    time.sleep(1)
 
 
 def adb_disconnect():
@@ -48,7 +50,8 @@ def adb_disconnect():
 
 def adb_monkey():
     package_name = test_data.from_config("PACKAGE_NAME")
-    adb_shell("adb shell monkey -p {} -c android.intent.category.LAUNCHER 1".format(package_name))
+    adb_shell(
+        "adb shell monkey -p {} -c android.intent.category.LAUNCHER 1".format(package_name))
 
 
 def adb_shell(cmd):
