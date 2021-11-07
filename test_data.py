@@ -6,6 +6,8 @@ import os
 def init():
     global altUnityDriver; altUnityDriver = None
     global device_ip_address; device_ip_address = None
+    global device_address; device_address = None
+    global session_id; session_id = None
     global time_start; time_start = None
     global time_end; time_end = None
 

@@ -1,6 +1,7 @@
 import subprocess
 from altunityrunner import *
 from datetime import timedelta
+import os
 import time
 import headspin
 import test_data
@@ -16,9 +17,8 @@ def before_scenario(context, scenario):
 def after_scenario(context, scenario):
     end_session()
     test_data.time_end = time.time()
-    time_taken = str(
-        timedelta(seconds=test_data.time_end - test_data.time_start))
-    print("\n" + '\033[94m' + "  Total Test Time: " + time_taken + '\033[0m')
+    time_taken = timedelta(seconds=test_data.time_end - test_data.time_start)
+    print("\n" + '\033[94m' + "  Total Test Time: " + str(time_taken) + '\033[0m')
 
 
 def end_session():
@@ -26,14 +26,16 @@ def end_session():
         test_data.altUnityDriver.stop()
         AltUnityPortForwarding.remove_forward_android()
         adb_disconnect()
+        headspin.session_end()
 
 
 def start_session():
-    headspin.app_uninstall()
-    headspin.app_install()
-    headspin.device_lock()
-    headspin.device_bridge()
-    headspin.device_unlock()
+    headspin.adb_uninstall()
+    headspin.adb_install()
+    headspin.adb_lock()
+    headspin.session_start()
+    headspin.adb_bridge()
+    headspin.adb_unlock()
     adb_connect()
     adb_monkey()
     AltUnityPortForwarding.forward_android()
@@ -56,5 +58,5 @@ def adb_monkey():
 
 
 def adb_shell(cmd):
-    print('\u001b[36m' + cmd + '\u001b[0m')
-    subprocess.call(cmd, shell=True)
+    # print('\u001b[36m' + cmd + '\u001b[0m')  # DEBUGGING
+    subprocess.call(cmd, shell=True, stdout=open(os.devnull, 'wb'))
