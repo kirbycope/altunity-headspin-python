@@ -25,6 +25,7 @@ def end_session():
     if test_data.altUnityDriver != None:
         test_data.altUnityDriver.stop()
         AltUnityPortForwarding.remove_forward_android()
+        adb_disconnect()
 
 
 def start_session():
@@ -55,4 +56,5 @@ def adb_monkey():
 
 
 def adb_shell(cmd):
+    print('\u001b[36m' + cmd + '\u001b[0m')
     subprocess.call(cmd, shell=True)

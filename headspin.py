@@ -3,7 +3,9 @@ import test_data
 
 
 def device_bridge():
-    return send_post("bridge")
+    res = send_post("bridge")
+    test_data.device_ip_address = res["serial"]
+    return res
 
 
 def app_install():
@@ -27,8 +29,10 @@ def device_unlock():
 
 
 def send_post(request):
+    print('\u001b[36m' + request + '\u001b[0m')
+    api_token = test_data.from_env("API_KEY")
     headers = {
-        "Authorization": "Bearer " + test_data.api_token
+        "Authorization": "Bearer {}".format(api_token)
     }
     udid = test_data.from_config("UDID")
     request = "https://api-dev.headspin.io/v0/adb/{}/{}".format(udid, request)
