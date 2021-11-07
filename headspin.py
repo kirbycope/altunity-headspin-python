@@ -67,7 +67,6 @@ def session_start():
         "session_type": "capture",
         "device_address": test_data.device_address
     }
-    print(data)
     data = json.dumps(data)
     res = send_request("post", "sessions", data)
     test_data.session_id = res["session_id"]
