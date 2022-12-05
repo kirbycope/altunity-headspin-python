@@ -31,7 +31,6 @@
 ## Run Tests
 
 ### AltUnity (Unity Mobile Apps)
-[AltUnity](https://altom.gitlab.io/altunity/altunitytester) is a free, open source asset. Its main goal is to enable UI test automation, by instrumenting games to get access and programmatically control the Unity objects.</br>
 The [apk](/trashcat.apk) is included as part of _this_ sample repo.
 
    * In the integrated terminal run `behave`
